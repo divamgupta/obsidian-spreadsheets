@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "spreadsheets-plugin",
+	"name": "Spreadsheets",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "This is a sample plugin for Obsidian. This plugin demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
-	"isDesktopOnly": false
+	"description": "Plugin to create spreadsheets in obsidian.",  
+	"author": "Divam Gupta",
+	"authorUrl": "https://divam.io",
+	"isDesktopOnly": true
 }
