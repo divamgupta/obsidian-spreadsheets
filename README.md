@@ -14,7 +14,13 @@ This plugin is based on FortuneSheet, which is based on Luckysheet.
 
 - Cells - merge cells, resize cells, drag cells 
 
-  
+### How to use:
+
+1) Install the plugin.
+
+2) Create a new spreadsheet by clicking on the "New Spreadsheet" ribbon button. Or rightclick on a folder in the left sidebar and click on "New spreadsheet".
+
+3) Start creating spreadsheets.
 
 ### Screenshots: 
 
