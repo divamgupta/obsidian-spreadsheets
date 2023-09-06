@@ -1,23 +1,10 @@
-import { App, Editor, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, WorkspaceLeaf } from 'obsidian';
+import { App, Editor, MarkdownView, Notice, Plugin, WorkspaceLeaf } from 'obsidian';
 import { SpreadsheetView, VIEW_TYPE_SPREADSHEET } from "./view"
-
-
-// Remember to rename these classes and interfaces!
-
-interface SpreadsheetPluginSettings {
-	mySetting: string;
-}
-
-const DEFAULT_SETTINGS: SpreadsheetPluginSettings = {
-	mySetting: 'default'
-}
 
 
 
 async function create_new_file(app, folder_path, file_no){
 
-
-	
 	if(folder_path){
 		try {
 			await app.vault.createFolder(folder_path);
@@ -59,43 +46,25 @@ async function create_new_file(app, folder_path, file_no){
 
 
 export default class SpreadsheetPlugin extends Plugin {
-	settings: SpreadsheetPluginSettings;
 
 	async onload() {
-		await this.loadSettings();
 
-		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('table', 'New Spreadsheet', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			create_new_file(this.app);
-			
+			create_new_file(this.app, undefined, undefined);
 		});
-		// Perform additional things with the ribbon
-		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
 
-		let that = this;
+		let app = this.app;
 
 		this.registerEvent(
 			this.app.workspace.on("file-menu", (menu, file) => {
 				menu.addItem((item) => {
 				  item.setTitle("New spreadsheet").setIcon("document").onClick(function(){
-					 create_new_file(that.app, file.path, 0 )
+					 create_new_file(app, file.path, 0 )
 				  });
 				});
 			})
 		  );
-
-
-
-		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
-
 
 		this.registerView(
 			VIEW_TYPE_SPREADSHEET,
@@ -112,38 +81,6 @@ export default class SpreadsheetPlugin extends Plugin {
 
 	}
 
-	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-	}
-
-	async saveSettings() {
-		await this.saveData(this.settings);
-	}
 }
 
 
-class SampleSettingTab extends PluginSettingTab {
-	plugin: SpreadsheetPlugin;
-
-	constructor(app: App, plugin: SpreadsheetPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const {containerEl} = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Setting')
-			.setDesc('settings')
-			.addText(text => text
-				.setPlaceholder('...')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
-	}
-}
