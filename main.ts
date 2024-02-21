@@ -58,8 +58,6 @@ export default class SpreadsheetPlugin extends Plugin {
 
 		this.registerEvent(
 			this.app.workspace.on("file-menu", (menu, file) => {
-				// Jaedon's Fix
-				// Check if the selected item is a directory or a file
 				if (file.hasOwnProperty("children"))
 				{
 					menu.addItem((item) => {
