@@ -58,13 +58,12 @@ export default class SpreadsheetPlugin extends Plugin {
 
 		this.registerEvent(
 			this.app.workspace.on("file-menu", (menu, file) => {
-				if (file.hasOwnProperty("children"))
-				{
+				if (file.hasOwnProperty("children")) {
 					menu.addItem((item) => {
 						item.setTitle("New spreadsheet").setIcon("document").onClick(function(){
 						   create_new_file(app, file.path, 0 )
 						});
-					  });
+					});
 				}
 			})
 		  );
