@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Notice, Plugin, WorkspaceLeaf } from 'obsidian';
+import { App, Editor, MarkdownView, Notice, Plugin, TFolder, WorkspaceLeaf } from 'obsidian';
 import { SpreadsheetView, VIEW_TYPE_SPREADSHEET } from "./view"
 
 
@@ -58,7 +58,7 @@ export default class SpreadsheetPlugin extends Plugin {
 
 		this.registerEvent(
 			this.app.workspace.on("file-menu", (menu, file) => {
-				if (file.hasOwnProperty("children")) {
+				if (file instanceof TFolder) {
 					menu.addItem((item) => {
 						item.setTitle("New spreadsheet").setIcon("document").onClick(function(){
 						   create_new_file(app, file.path, 0 )
